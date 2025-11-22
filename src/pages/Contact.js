@@ -21,18 +21,22 @@ const Contact = () => {
       <Heading as="h2" size="lg" mb={5}>Contact Us</Heading>
       <form onSubmit={handleSubmit}>
         <VStack spacing={4}>
-          <Field label="Name" required>
+          <Field.Root required>
+            <Field.Label>Name</Field.Label>
             <Input type="text" placeholder="Your Name" />
-          </Field>
-          <Field label="Email" required>
+          </Field.Root>
+          <Field.Root required>
+            <Field.Label>Email</Field.Label>
             <Input type="email" placeholder="your.email@example.com" />
-          </Field>
-          <Field label="Subject" required>
+          </Field.Root>
+          <Field.Root required>
+            <Field.Label>Subject</Field.Label>
             <Input type="text" placeholder="Subject of your message" />
-          </Field>
-          <Field label="Message" required>
+          </Field.Root>
+          <Field.Root required>
+            <Field.Label>Message</Field.Label>
             <Textarea placeholder="Your message here..." rows={5} />
-          </Field>
+          </Field.Root>
           <Button type="submit" colorScheme="blue" width="full">Send</Button>
         </VStack>
       </form>
