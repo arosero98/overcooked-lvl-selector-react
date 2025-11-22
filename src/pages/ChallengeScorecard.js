@@ -4,17 +4,7 @@ import {
   Heading,
   Text,
   Table,
-  TableContainer,
-  Tbody,
-  Tfoot,
-  Tr,
-  Th,
-  Td,
-  NumberInput,
-  NumberInputField,
-  NumberInputStepper,
-  NumberIncrementStepper,
-  NumberDecrementStepper,
+  Input,
 } from '@chakra-ui/react';
 
 const criteria = [
@@ -56,41 +46,36 @@ const ChallengeScorecard = () => {
                 Challenge in video game design paradigms can be leveraged by teams researchers as a respresentation of task load. Task Load and Challenge are both foundationally similar constructs: Environmental or Task conditions that affect user mental states and may affect performance. As a result, teams researchers can utilize video games as team research stimuli where challenge (or task load) is manipulated through the level design. This allows researchers the ability to use video games as a task environment for various team-related research questions such as manipulation of workload, team dynamics such as trust, team processes like communication, and the development of team level knowledge structures such as Transactive Memory Systems and Shared Mental Models.
             </Text>
             <Heading as="h3" size="md" mt={5} mb={2}>Challenge Scorecard</Heading>
-            <TableContainer>
-            <Table variant="striped" mt={4}>
+            <Box overflowX="auto">
+            <Table.Root variant="striped" mt={4}>
 
-                <Tbody>
+                <Table.Body>
                     {criteria.map(crit => (
-                        <Tr key={crit.id}>
-                            <Td>{crit.id}</Td>
-                            <Td>{crit.name}</Td>
-                            <Td>{crit.description}</Td>
-                            <Td isNumeric>
-                                <NumberInput
+                        <Table.Row key={crit.id}>
+                            <Table.Cell>{crit.id}</Table.Cell>
+                            <Table.Cell>{crit.name}</Table.Cell>
+                            <Table.Cell>{crit.description}</Table.Cell>
+                            <Table.Cell textAlign="right">
+                                <Input
+                                    type="number"
                                     size="sm"
-                                    maxW={20}
+                                    width="80px"
                                     value={scores[crit.id]}
-                                    onChange={(valStr, valNum) => handleScoreChange(valStr, valNum, crit.id)}
+                                    onChange={(e) => handleScoreChange(e.target.value, parseInt(e.target.value) || 0, crit.id)}
                                     min={0}
-                                >
-                                    <NumberInputField />
-                                    <NumberInputStepper>
-                                        <NumberIncrementStepper />
-                                        <NumberDecrementStepper />
-                                    </NumberInputStepper>
-                                </NumberInput>
-                            </Td>
-                        </Tr>
+                                />
+                            </Table.Cell>
+                        </Table.Row>
                     ))}
-                </Tbody>
-                <Tfoot>
-                    <Tr>
-                        <Th colSpan={3} fontSize="md">Total</Th>
-                        <Th isNumeric fontSize="md">{totalScore}</Th>
-                    </Tr>
-                </Tfoot>
-            </Table>
-            </TableContainer>
+                </Table.Body>
+                <Table.Footer>
+                    <Table.Row>
+                        <Table.ColumnHeader colSpan={3} fontSize="md">Total</Table.ColumnHeader>
+                        <Table.ColumnHeader textAlign="right" fontSize="md">{totalScore}</Table.ColumnHeader>
+                    </Table.Row>
+                </Table.Footer>
+            </Table.Root>
+            </Box>
         </Box>
     );
 };

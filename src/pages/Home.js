@@ -3,23 +3,19 @@ import {
   Box,
   Flex,
   Heading,
-  Select,
   Button,
   Grid,
   Text,
-  useDisclosure,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
-  Table,
-  Tbody,
-  Tr,
-  Td,
   Link as ChakraLink,
+  NativeSelect,
+  DialogRoot,
+  DialogContent,
+  DialogHeader,
+  DialogBody,
+  DialogFooter,
+  DialogCloseTrigger,
+  DialogTitle,
+  Table,
 } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router-dom';
 
@@ -39,7 +35,7 @@ const Home = () => {
     dish_washer: [],
   });
   const [notification, setNotification] = useState('');
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [selectedLevel, setSelectedLevel] = useState(null);
   const [searchActive, setSearchActive] = useState(false);
 
@@ -115,7 +111,7 @@ const Home = () => {
 
   const handleLevelClick = (levelId) => {
     setSelectedLevel({id: levelId, ...allLevelsData[levelId]});
-    onOpen();
+    setIsDialogOpen(true);
   };
   
   const getScoreColor = (score) => {
@@ -178,23 +174,31 @@ const Home = () => {
       <Flex>
         <Box w="300px" p={5} mr={5} border="1px" borderColor="gray.200" borderRadius="md" bg="gray.50" h="fit-content">
           <Heading as="h3" size="md" mb={4}>Filter Levels</Heading>
-          <Select name="start_at_go" value={filters.start_at_go} onChange={handleFilterChange} mb={3}>
-            <option value="">Start at Go?</option>
-            {filterOptions.start_at_go.map(opt => <option key={opt} value={opt}>{opt}</option>)}
-          </Select>
-          <Select name="fixed_environment" value={filters.fixed_environment} onChange={handleFilterChange} mb={3}>
-            <option value="">Fixed Environment?</option>
-            {filterOptions.fixed_environment.map(opt => <option key={opt} value={opt}>{opt}</option>)}
-          </Select>
-          <Select name="dish_washer" value={filters.dish_washer} onChange={handleFilterChange} mb={3}>
-            <option value="">Dish Washer?</option>
-            {filterOptions.dish_washer.map(opt => <option key={opt} value={opt}>{opt}</option>)}
-          </Select>
-          <Select name="challenge_score" value={filters.challenge_score} onChange={handleFilterChange} mb={3}>
-            <option value="">Challenge Score</option>
-            <option value="1-4">1-4</option>
-            <option value="5-10">5-10</option>
-          </Select>
+          <NativeSelect.Root mb={3}>
+            <NativeSelect.Field name="start_at_go" value={filters.start_at_go} onChange={handleFilterChange}>
+              <option value="">Start at Go?</option>
+              {filterOptions.start_at_go.map(opt => <option key={opt} value={opt}>{opt}</option>)}
+            </NativeSelect.Field>
+          </NativeSelect.Root>
+          <NativeSelect.Root mb={3}>
+            <NativeSelect.Field name="fixed_environment" value={filters.fixed_environment} onChange={handleFilterChange}>
+              <option value="">Fixed Environment?</option>
+              {filterOptions.fixed_environment.map(opt => <option key={opt} value={opt}>{opt}</option>)}
+            </NativeSelect.Field>
+          </NativeSelect.Root>
+          <NativeSelect.Root mb={3}>
+            <NativeSelect.Field name="dish_washer" value={filters.dish_washer} onChange={handleFilterChange}>
+              <option value="">Dish Washer?</option>
+              {filterOptions.dish_washer.map(opt => <option key={opt} value={opt}>{opt}</option>)}
+            </NativeSelect.Field>
+          </NativeSelect.Root>
+          <NativeSelect.Root mb={3}>
+            <NativeSelect.Field name="challenge_score" value={filters.challenge_score} onChange={handleFilterChange}>
+              <option value="">Challenge Score</option>
+              <option value="1-4">1-4</option>
+              <option value="5-10">5-10</option>
+            </NativeSelect.Field>
+          </NativeSelect.Root>
           <Button colorScheme="blue" onClick={applyFilters} width="100%" mb={2}>Search</Button>
           {searchActive && <Button onClick={clearFilters} width="100%" variant="outline">Clear Search</Button>}
         </Box>
@@ -205,35 +209,36 @@ const Home = () => {
       </Flex>
 
       {selectedLevel && (
-        <Modal isOpen={isOpen} onClose={onClose} isCentered>
-          <ModalOverlay />
-          <ModalContent>
-            <ModalHeader>{selectedLevel.id.replace(/_/g, ' ')}</ModalHeader>
-            <ModalCloseButton />
-            <ModalBody>
-              <Table variant="simple">
-                <Tbody>
+        <DialogRoot open={isDialogOpen} onOpenChange={(e) => setIsDialogOpen(e.open)} placement="center">
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>{selectedLevel.id.replace(/_/g, ' ')}</DialogTitle>
+              <DialogCloseTrigger />
+            </DialogHeader>
+            <DialogBody>
+              <Table.Root variant="simple">
+                <Table.Body>
                   {Object.entries(selectedLevel).filter(([key]) => key !== 'id').map(([key, value]) => (
-                    <Tr key={key}>
-                      <Td textTransform="capitalize">{key.replace(/_/g, ' ')}</Td>
-                      <Td>{value}</Td>
-                    </Tr>
+                    <Table.Row key={key}>
+                      <Table.Cell textTransform="capitalize">{key.replace(/_/g, ' ')}</Table.Cell>
+                      <Table.Cell>{value}</Table.Cell>
+                    </Table.Row>
                   ))}
-                </Tbody>
-              </Table>
+                </Table.Body>
+              </Table.Root>
               {selectedLevel.id === 'Level_1_1' && (
-                  <Button as={ChakraLink} href="/Overcooked 2 level 1.1.pdf" isExternal mt={4} w="100%">
+                  <Button as={ChakraLink} href="/Overcooked 2 level 1.1.pdf" external mt={4} w="100%">
                       Full Level Breakdown
                   </Button>
               )}
-            </ModalBody>
-            <ModalFooter>
-              <Button colorScheme="blue" onClick={onClose}>
+            </DialogBody>
+            <DialogFooter>
+              <Button colorScheme="blue" onClick={() => setIsDialogOpen(false)}>
                 Close
               </Button>
-            </ModalFooter>
-          </ModalContent>
-        </Modal>
+            </DialogFooter>
+          </DialogContent>
+        </DialogRoot>
       )}
     </Box>
   );

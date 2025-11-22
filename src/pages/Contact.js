@@ -2,13 +2,12 @@ import React from 'react';
 import {
   Box,
   Heading,
-  FormControl,
-  FormLabel,
-  Input,
-  Textarea,
   Button,
   VStack,
+  Input,
+  Textarea,
 } from '@chakra-ui/react';
+import { Field } from '@chakra-ui/react/field';
 
 const Contact = () => {
   const handleSubmit = (e) => {
@@ -22,22 +21,18 @@ const Contact = () => {
       <Heading as="h2" size="lg" mb={5}>Contact Us</Heading>
       <form onSubmit={handleSubmit}>
         <VStack spacing={4}>
-          <FormControl id="name" isRequired>
-            <FormLabel>Name</FormLabel>
+          <Field label="Name" required>
             <Input type="text" placeholder="Your Name" />
-          </FormControl>
-          <FormControl id="email" isRequired>
-            <FormLabel>Email</FormLabel>
+          </Field>
+          <Field label="Email" required>
             <Input type="email" placeholder="your.email@example.com" />
-          </FormControl>
-          <FormControl id="subject" isRequired>
-            <FormLabel>Subject</FormLabel>
+          </Field>
+          <Field label="Subject" required>
             <Input type="text" placeholder="Subject of your message" />
-          </FormControl>
-          <FormControl id="message" isRequired>
-            <FormLabel>Message</FormLabel>
+          </Field>
+          <Field label="Message" required>
             <Textarea placeholder="Your message here..." rows={5} />
-          </FormControl>
+          </Field>
           <Button type="submit" colorScheme="blue" width="full">Send</Button>
         </VStack>
       </form>
