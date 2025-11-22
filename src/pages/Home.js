@@ -141,7 +141,7 @@ const Home = () => {
             <Typography variant="h5" component="h3" sx={{ mb: 3 }}>
                 World {worldNum}
             </Typography>
-            <Grid container spacing={6}>
+            <Grid container spacing={2}>
                 {worlds[worldNum].sort((a, b) => Number(a.split('_')[2]) - Number(b.split('_')[2])).map(levelId => (
                     <Grid item xs={12} sm={6} md={4} lg={3} key={levelId}>
                         <Box
@@ -150,7 +150,7 @@ const Home = () => {
                                 boxShadow: 2,
                                 border: '1px solid',
                                 borderColor: 'grey.300',
-                                borderRadius: 1,
+                                borderRadius: 5,
                                 cursor: 'pointer',
                                 bgcolor: getScoreColor(allLevelsData[levelId].challenge_score),
                                 '&:hover': {
@@ -175,6 +175,10 @@ const Home = () => {
 
   return (
     <Box sx={{ p: 5, maxWidth: '1200px', mx: 'auto' }}>
+      <Typography variant="h3" component="h1" textAlign="center" sx={{ mb: 5 }}>
+        Overcooked Level Selection
+      </Typography>
+
       <Box sx={{ mb: 5 }}>
         <Typography variant="h4" component="h2">
           A look behind the challenge
@@ -187,73 +191,81 @@ const Home = () => {
           Challenge Score Breakdown
         </Button>
       </Box>
-
-      <Typography variant="h4" component="h2" sx={{ mb: 4 }}>
-        Levels
-      </Typography>
-      <Box sx={{ display: 'flex' }}>
-        <Box sx={{ width: '300px', p: 5, mr: 5, border: '1px solid', borderColor: 'grey.300', borderRadius: 1, bgcolor: 'grey.50', height: 'fit-content' }}>
-          <Typography variant="h5" component="h3" sx={{ mb: 4 }}>
-            Filter Levels
-          </Typography>
-          <TextField
-            select
-            fullWidth
-            label="Start at Go?"
-            name="start_at_go"
-            value={filters.start_at_go}
-            onChange={handleFilterChange}
-            sx={{ mb: 3 }}
-          >
-            <MenuItem value="">All</MenuItem>
-            {filterOptions.start_at_go.map(opt => <MenuItem key={opt} value={opt}>{opt}</MenuItem>)}
-          </TextField>
-          <TextField
-            select
-            fullWidth
-            label="Fixed Environment?"
-            name="fixed_environment"
-            value={filters.fixed_environment}
-            onChange={handleFilterChange}
-            sx={{ mb: 3 }}
-          >
-            <MenuItem value="">All</MenuItem>
-            {filterOptions.fixed_environment.map(opt => <MenuItem key={opt} value={opt}>{opt}</MenuItem>)}
-          </TextField>
-          <TextField
-            select
-            fullWidth
-            label="Dish Washer?"
-            name="dish_washer"
-            value={filters.dish_washer}
-            onChange={handleFilterChange}
-            sx={{ mb: 3 }}
-          >
-            <MenuItem value="">All</MenuItem>
-            {filterOptions.dish_washer.map(opt => <MenuItem key={opt} value={opt}>{opt}</MenuItem>)}
-          </TextField>
-          <TextField
-            select
-            fullWidth
-            label="Challenge Score"
-            name="challenge_score"
-            value={filters.challenge_score}
-            onChange={handleFilterChange}
-            sx={{ mb: 3 }}
-          >
-            <MenuItem value="">All</MenuItem>
-            <MenuItem value="1-4">1-4</MenuItem>
-            <MenuItem value="5-10">5-10</MenuItem>
-          </TextField>
-          <Button variant="contained" color="primary" onClick={applyFilters} fullWidth sx={{ mb: 2 }}>
+      
+      <Box sx={{ mb: 5, p: 3, border: '1px solid', borderColor: 'grey.300', borderRadius: 1, bgcolor: 'grey.50' }}>
+        <Typography variant="h5" component="h3" sx={{ mb: 4 }}>
+          Filter Levels
+        </Typography>
+        <Grid container spacing={3}>
+          <Grid item xs={12} sm={6} md={6}>
+            <TextField
+              select
+              fullWidth
+              label="Start at Go?"
+              name="start_at_go"
+              value={filters.start_at_go}
+              onChange={handleFilterChange}
+              sx={{ width: 'fit-content', minWidth: 200 }}
+            >
+              <MenuItem value="">All</MenuItem>
+              {filterOptions.start_at_go.map(opt => <MenuItem key={opt} value={opt}>{opt}</MenuItem>)}
+            </TextField>
+          </Grid>
+          <Grid item xs={12} sm={6} md={6}>
+            <TextField
+              select
+              fullWidth
+              label="Fixed Environment?"
+              name="fixed_environment"
+              value={filters.fixed_environment}
+              onChange={handleFilterChange}
+              sx={{ width: 'fit-content', minWidth: 200 }}
+            >
+              <MenuItem value="">All</MenuItem>
+              {filterOptions.fixed_environment.map(opt => <MenuItem key={opt} value={opt}>{opt}</MenuItem>)}
+            </TextField>
+          </Grid>
+          <Grid item xs={12} sm={6} md={6}>
+            <TextField
+              select
+              fullWidth
+              label="Dish Washer?"
+              name="dish_washer"
+              value={filters.dish_washer}
+              onChange={handleFilterChange}
+              sx={{ width: 'fit-content', minWidth: 200 }}
+            >
+              <MenuItem value="">All</MenuItem>
+              {filterOptions.dish_washer.map(opt => <MenuItem key={opt} value={opt}>{opt}</MenuItem>)}
+            </TextField>
+          </Grid>
+          <Grid item xs={12} sm={6} md={6}>
+            <TextField
+              select
+              fullWidth
+              label="Challenge Score"
+              name="challenge_score"
+              value={filters.challenge_score}
+              onChange={handleFilterChange}
+              sx={{ width: 'fit-content', minWidth: 200 }}
+            >
+              <MenuItem value="">All</MenuItem>
+              <MenuItem value="1-4">1-4</MenuItem>
+              <MenuItem value="5-10">5-10</MenuItem>
+            </TextField>
+          </Grid>
+        </Grid>
+        <Box sx={{ mt: 2, display: 'flex', gap: 2 }}>
+          <Button variant="contained" color="primary" onClick={applyFilters}>
             Search
           </Button>
-          {searchActive && <Button onClick={clearFilters} fullWidth variant="outlined">Clear Search</Button>}
+          {searchActive && <Button onClick={clearFilters} variant="outlined">Clear Search</Button>}
         </Box>
-        <Box sx={{ flex: 1 }}>
-          {notification && <Typography fontWeight="bold" sx={{ mb: 3 }}>{notification}</Typography>}
-          {renderWorlds()}
-        </Box>
+      </Box>
+
+      <Box>
+        {notification && <Typography fontWeight="bold" sx={{ mb: 3 }}>{notification}</Typography>}
+        {renderWorlds()}
       </Box>
 
       {selectedLevel && (
