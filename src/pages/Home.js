@@ -1,22 +1,23 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import {
   Box,
-  Flex,
-  Heading,
+  Typography,
   Button,
   Grid,
-  Text,
-  Link as ChakraLink,
-  NativeSelect,
-  DialogRoot,
-  DialogContent,
-  DialogHeader,
-  DialogBody,
-  DialogFooter,
-  DialogCloseTrigger,
+  Link,
+  TextField,
+  MenuItem,
+  Dialog,
   DialogTitle,
+  DialogContent,
+  DialogActions,
+  IconButton,
   Table,
-} from '@chakra-ui/react';
+  TableBody,
+  TableRow,
+  TableCell,
+} from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 import { Link as RouterLink } from 'react-router-dom';
 
 
@@ -116,14 +117,14 @@ const Home = () => {
   
   const getScoreColor = (score) => {
     const numericScore = Number(score);
-    if (numericScore >= 8) return 'red.100';
-    if (numericScore >= 5) return 'yellow.100';
-    return 'green.100';
+    if (numericScore >= 8) return '#ffcdd2'; // red
+    if (numericScore >= 5) return '#fff9c4'; // yellow
+    return '#c8e6c9'; // green
   };
 
   const renderWorlds = () => {
     if (filteredLevels.length === 0 && searchActive) {
-        return <Text>No levels found matching the criteria.</Text>
+        return <Typography>No levels found matching the criteria.</Typography>
     }
 
     const worlds = {};
@@ -136,23 +137,36 @@ const Home = () => {
     });
 
     return Object.keys(worlds).sort((a, b) => Number(a) - Number(b)).map(worldNum => (
-        <Box key={worldNum} mb={5}>
-            <Heading as="h3" size="md" mb={3}>World {worldNum}</Heading>
-            <Grid templateColumns="repeat(auto-fill, minmax(200px, 1fr))" gap={6}>
+        <Box key={worldNum} sx={{ mb: 5 }}>
+            <Typography variant="h5" component="h3" sx={{ mb: 3 }}>
+                World {worldNum}
+            </Typography>
+            <Grid container spacing={6}>
                 {worlds[worldNum].sort((a, b) => Number(a.split('_')[2]) - Number(b.split('_')[2])).map(levelId => (
-                    <Box
-                        key={levelId}
-                        p={5}
-                        shadow="md"
-                        borderWidth="1px"
-                        borderRadius="md"
-                        cursor="pointer"
-                        onClick={() => handleLevelClick(levelId)}
-                        bg={getScoreColor(allLevelsData[levelId].challenge_score)}
-                    >
-                        <Heading fontSize="xl">{levelId.replace(/_/g, ' ').replace('Level ', 'Level ')}</Heading>
-                        <Text mt={4}>Challenge Score: {allLevelsData[levelId].challenge_score}</Text>
-                    </Box>
+                    <Grid item xs={12} sm={6} md={4} lg={3} key={levelId}>
+                        <Box
+                            sx={{
+                                p: 5,
+                                boxShadow: 2,
+                                border: '1px solid',
+                                borderColor: 'grey.300',
+                                borderRadius: 1,
+                                cursor: 'pointer',
+                                bgcolor: getScoreColor(allLevelsData[levelId].challenge_score),
+                                '&:hover': {
+                                    boxShadow: 4,
+                                },
+                            }}
+                            onClick={() => handleLevelClick(levelId)}
+                        >
+                            <Typography variant="h6">
+                                {levelId.replace(/_/g, ' ').replace('Level ', 'Level ')}
+                            </Typography>
+                            <Typography sx={{ mt: 4 }}>
+                                Challenge Score: {allLevelsData[levelId].challenge_score}
+                            </Typography>
+                        </Box>
+                    </Grid>
                 ))}
             </Grid>
         </Box>
@@ -160,85 +174,142 @@ const Home = () => {
   };
 
   return (
-    <Box p={5} maxW="1200px" mx="auto">
-      <Box mb={5}>
-        <Heading as="h2" size="lg">A look behind the challenge</Heading>
-        <Text mt={3}>
+    <Box sx={{ p: 5, maxWidth: '1200px', mx: 'auto' }}>
+      <Box sx={{ mb: 5 }}>
+        <Typography variant="h4" component="h2">
+          A look behind the challenge
+        </Typography>
+        <Typography sx={{ mt: 3 }}>
           Each level's challenge score was calculated by examining various aspects of each Overcooked 2 level to see how task load is manipulated through game design.
           Click the button below to see how each of these aspects are defined in our taxonomy.
-        </Text>
-        <Button as={RouterLink} to="/challenge" colorScheme="gray" mt={3}>Challenge Score Breakdown</Button>
+        </Typography>
+        <Button component={RouterLink} to="/challenge" variant="outlined" sx={{ mt: 3 }}>
+          Challenge Score Breakdown
+        </Button>
       </Box>
 
-      <Heading as="h2" size="lg" mb={4}>Levels</Heading>
-      <Flex>
-        <Box w="300px" p={5} mr={5} border="1px" borderColor="gray.200" borderRadius="md" bg="gray.50" h="fit-content">
-          <Heading as="h3" size="md" mb={4}>Filter Levels</Heading>
-          <NativeSelect.Root mb={3}>
-            <NativeSelect.Field name="start_at_go" value={filters.start_at_go} onChange={handleFilterChange}>
-              <option value="">Start at Go?</option>
-              {filterOptions.start_at_go.map(opt => <option key={opt} value={opt}>{opt}</option>)}
-            </NativeSelect.Field>
-          </NativeSelect.Root>
-          <NativeSelect.Root mb={3}>
-            <NativeSelect.Field name="fixed_environment" value={filters.fixed_environment} onChange={handleFilterChange}>
-              <option value="">Fixed Environment?</option>
-              {filterOptions.fixed_environment.map(opt => <option key={opt} value={opt}>{opt}</option>)}
-            </NativeSelect.Field>
-          </NativeSelect.Root>
-          <NativeSelect.Root mb={3}>
-            <NativeSelect.Field name="dish_washer" value={filters.dish_washer} onChange={handleFilterChange}>
-              <option value="">Dish Washer?</option>
-              {filterOptions.dish_washer.map(opt => <option key={opt} value={opt}>{opt}</option>)}
-            </NativeSelect.Field>
-          </NativeSelect.Root>
-          <NativeSelect.Root mb={3}>
-            <NativeSelect.Field name="challenge_score" value={filters.challenge_score} onChange={handleFilterChange}>
-              <option value="">Challenge Score</option>
-              <option value="1-4">1-4</option>
-              <option value="5-10">5-10</option>
-            </NativeSelect.Field>
-          </NativeSelect.Root>
-          <Button colorScheme="blue" onClick={applyFilters} width="100%" mb={2}>Search</Button>
-          {searchActive && <Button onClick={clearFilters} width="100%" variant="outline">Clear Search</Button>}
+      <Typography variant="h4" component="h2" sx={{ mb: 4 }}>
+        Levels
+      </Typography>
+      <Box sx={{ display: 'flex' }}>
+        <Box sx={{ width: '300px', p: 5, mr: 5, border: '1px solid', borderColor: 'grey.300', borderRadius: 1, bgcolor: 'grey.50', height: 'fit-content' }}>
+          <Typography variant="h5" component="h3" sx={{ mb: 4 }}>
+            Filter Levels
+          </Typography>
+          <TextField
+            select
+            fullWidth
+            label="Start at Go?"
+            name="start_at_go"
+            value={filters.start_at_go}
+            onChange={handleFilterChange}
+            sx={{ mb: 3 }}
+          >
+            <MenuItem value="">All</MenuItem>
+            {filterOptions.start_at_go.map(opt => <MenuItem key={opt} value={opt}>{opt}</MenuItem>)}
+          </TextField>
+          <TextField
+            select
+            fullWidth
+            label="Fixed Environment?"
+            name="fixed_environment"
+            value={filters.fixed_environment}
+            onChange={handleFilterChange}
+            sx={{ mb: 3 }}
+          >
+            <MenuItem value="">All</MenuItem>
+            {filterOptions.fixed_environment.map(opt => <MenuItem key={opt} value={opt}>{opt}</MenuItem>)}
+          </TextField>
+          <TextField
+            select
+            fullWidth
+            label="Dish Washer?"
+            name="dish_washer"
+            value={filters.dish_washer}
+            onChange={handleFilterChange}
+            sx={{ mb: 3 }}
+          >
+            <MenuItem value="">All</MenuItem>
+            {filterOptions.dish_washer.map(opt => <MenuItem key={opt} value={opt}>{opt}</MenuItem>)}
+          </TextField>
+          <TextField
+            select
+            fullWidth
+            label="Challenge Score"
+            name="challenge_score"
+            value={filters.challenge_score}
+            onChange={handleFilterChange}
+            sx={{ mb: 3 }}
+          >
+            <MenuItem value="">All</MenuItem>
+            <MenuItem value="1-4">1-4</MenuItem>
+            <MenuItem value="5-10">5-10</MenuItem>
+          </TextField>
+          <Button variant="contained" color="primary" onClick={applyFilters} fullWidth sx={{ mb: 2 }}>
+            Search
+          </Button>
+          {searchActive && <Button onClick={clearFilters} fullWidth variant="outlined">Clear Search</Button>}
         </Box>
-        <Box flex="1">
-          {notification && <Text fontWeight="bold" mb={3}>{notification}</Text>}
+        <Box sx={{ flex: 1 }}>
+          {notification && <Typography fontWeight="bold" sx={{ mb: 3 }}>{notification}</Typography>}
           {renderWorlds()}
         </Box>
-      </Flex>
+      </Box>
 
       {selectedLevel && (
-        <DialogRoot open={isDialogOpen} onOpenChange={(e) => setIsDialogOpen(e.open)} placement="center">
+        <Dialog
+          open={isDialogOpen}
+          onClose={() => setIsDialogOpen(false)}
+          maxWidth="md"
+          fullWidth
+        >
+          <DialogTitle>
+            {selectedLevel.id.replace(/_/g, ' ')}
+            <IconButton
+              aria-label="close"
+              onClick={() => setIsDialogOpen(false)}
+              sx={{
+                position: 'absolute',
+                right: 8,
+                top: 8,
+              }}
+            >
+              <CloseIcon />
+            </IconButton>
+          </DialogTitle>
           <DialogContent>
-            <DialogHeader>
-              <DialogTitle>{selectedLevel.id.replace(/_/g, ' ')}</DialogTitle>
-              <DialogCloseTrigger />
-            </DialogHeader>
-            <DialogBody>
-              <Table.Root variant="simple">
-                <Table.Body>
-                  {Object.entries(selectedLevel).filter(([key]) => key !== 'id').map(([key, value]) => (
-                    <Table.Row key={key}>
-                      <Table.Cell textTransform="capitalize">{key.replace(/_/g, ' ')}</Table.Cell>
-                      <Table.Cell>{value}</Table.Cell>
-                    </Table.Row>
-                  ))}
-                </Table.Body>
-              </Table.Root>
-              {selectedLevel.id === 'Level_1_1' && (
-                  <Button as={ChakraLink} href="/Overcooked 2 level 1.1.pdf" external mt={4} w="100%">
-                      Full Level Breakdown
-                  </Button>
-              )}
-            </DialogBody>
-            <DialogFooter>
-              <Button colorScheme="blue" onClick={() => setIsDialogOpen(false)}>
-                Close
+            <Table>
+              <TableBody>
+                {Object.entries(selectedLevel).filter(([key]) => key !== 'id').map(([key, value]) => (
+                  <TableRow key={key}>
+                    <TableCell sx={{ textTransform: 'capitalize' }}>
+                      {key.replace(/_/g, ' ')}
+                    </TableCell>
+                    <TableCell>{value}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+            {selectedLevel.id === 'Level_1_1' && (
+              <Button
+                component={Link}
+                href="/Overcooked 2 level 1.1.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                variant="contained"
+                fullWidth
+                sx={{ mt: 4 }}
+              >
+                Full Level Breakdown
               </Button>
-            </DialogFooter>
+            )}
           </DialogContent>
-        </DialogRoot>
+          <DialogActions>
+            <Button variant="contained" color="primary" onClick={() => setIsDialogOpen(false)}>
+              Close
+            </Button>
+          </DialogActions>
+        </Dialog>
       )}
     </Box>
   );

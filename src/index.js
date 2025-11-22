@@ -3,17 +3,25 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { ChakraProvider, defaultSystem } from '@chakra-ui/react';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
 import { BrowserRouter } from 'react-router-dom';
+
+const theme = createTheme({
+  palette: {
+    mode: 'light',
+  },
+});
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <ChakraProvider value={defaultSystem}>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
       <BrowserRouter>
         <App />
       </BrowserRouter>
-    </ChakraProvider>
+    </ThemeProvider>
   </React.StrictMode>
 );
 
