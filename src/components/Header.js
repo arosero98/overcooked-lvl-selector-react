@@ -1,6 +1,6 @@
 // src/components/Header.js
 import React from 'react';
-import { Box, Flex, Heading, Link } from '@chakra-ui/react';
+import { Box, Typography, Link } from '@mui/material';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
 
 const Header = () => {
@@ -11,33 +11,39 @@ const Header = () => {
   };
 
   return (
-    <Flex
-      as="header"
-      justify="space-between"
-      align="center"
-      mb={5}
-      p={5}
-      borderBottom="1px"
-      borderColor="gray.200"
+    <Box
+      component="header"
+      sx={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        mb: 5,
+        p: 5,
+        borderBottom: '1px solid',
+        borderColor: 'grey.300',
+      }}
     >
-      <Heading as="h1" size="lg">
+      <Typography variant="h4" component="h1">
         Overcooked Level Selector
-      </Heading>
-      <Box as="nav">
-        <Link as={RouterLink} to="/" p={3} {...getLinkStyles('/')}>
+      </Typography>
+      <Box component="nav">
+        <Link component={RouterLink} to="/" sx={{ p: 3, ...getLinkStyles('/') }}>
           Home
         </Link>
-        <Link as={RouterLink} to="/" p={3} {...getLinkStyles('/')}>
-          Taxonomy
+        <Link component={RouterLink} to="/about" sx={{ p: 3, ...getLinkStyles('/about') }}>
+          About
         </Link>
-        <Link as={RouterLink} to="/challenge" p={3} {...getLinkStyles('/challenge')}>
+        <Link component={RouterLink} to="/levels" sx={{ p: 3, ...getLinkStyles('/levels') }}>
+          Levels
+        </Link>
+        <Link component={RouterLink} to="/challenge" sx={{ p: 3, ...getLinkStyles('/challenge') }}>
           Measuring Challenge
         </Link>
-        <Link as={RouterLink} to="/contact" p={3} {...getLinkStyles('/contact')}>
+        <Link component={RouterLink} to="/contact" sx={{ p: 3, ...getLinkStyles('/contact') }}>
           Contact
         </Link>
       </Box>
-    </Flex>
+    </Box>
   );
 };
 
