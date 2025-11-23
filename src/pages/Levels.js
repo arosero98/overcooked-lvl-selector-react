@@ -29,6 +29,9 @@ const Levels = () => {
     fixed_environment: '',
     dish_washer: '',
     challenge_score: '',
+    time_to_complete: '',
+    one_star_score: '',
+    composite_num: '',
   });
   const [filterOptions, setFilterOptions] = useState({
     start_at_go: [],
@@ -102,6 +105,39 @@ const Levels = () => {
         return score >= min && score <= max;
       });
     }
+    if (filters.time_to_complete) {
+        levels = levels.filter(level => {
+            const timeStr = allLevelsData[level].time_to_complete;
+            if (typeof timeStr !== 'string' || !timeStr.includes(':')) return false;
+            const timeParts = timeStr.split(':');
+            if (timeParts.length !== 2) return false;
+            const minutes = parseInt(timeParts[0], 10);
+            const seconds = parseInt(timeParts[1], 10);
+            if (isNaN(minutes) || isNaN(seconds)) return false;
+            const totalSeconds = minutes * 60 + seconds;
+
+            switch (filters.time_to_complete) {
+                case '1-3':
+                    return totalSeconds >= 60 && totalSeconds <= 180;
+                case '3-5':
+                    return totalSeconds > 180 && totalSeconds <= 300;
+                case '5+':
+                    return totalSeconds > 300;
+                default:
+                    return true;
+            }
+        });
+    }
+    if (filters.one_star_score) {
+        const [min, max] = filters.one_star_score.split('-').map(Number);
+        levels = levels.filter(level => {
+            const score = Number(allLevelsData[level].one_star_score);
+            return score >= min && score <= max;
+        });
+    }
+    if (filters.composite_num) {
+        levels = levels.filter(level => allLevelsData[level].composite_num === filters.composite_num);
+    }
 
     setFilteredLevels(levels);
     setNotification(`${levels.length} results found`);
@@ -115,6 +151,9 @@ const Levels = () => {
       fixed_environment: '',
       dish_washer: '',
       challenge_score: '',
+      time_to_complete: '',
+      one_star_score: '',
+      composite_num: '',
     });
     setNotification('');
   };
@@ -207,7 +246,7 @@ const Levels = () => {
           Filter Levels
         </Typography>
         <Grid container spacing={3}>
-          <Grid item xs={12} sm={6} md={6}>
+          <Grid item xs={12} sm={6} md={4}>
             <TextField
               select
               fullWidth
@@ -221,7 +260,7 @@ const Levels = () => {
               {filterOptions.start_at_go.map(opt => <MenuItem key={opt} value={opt}>{opt}</MenuItem>)}
             </TextField>
           </Grid>
-          <Grid item xs={12} sm={6} md={6}>
+          <Grid item xs={12} sm={6} md={4}>
             <TextField
               select
               fullWidth
@@ -235,7 +274,7 @@ const Levels = () => {
               {filterOptions.fixed_environment.map(opt => <MenuItem key={opt} value={opt}>{opt}</MenuItem>)}
             </TextField>
           </Grid>
-          <Grid item xs={12} sm={6} md={6}>
+          <Grid item xs={12} sm={6} md={4}>
             <TextField
               select
               fullWidth
@@ -249,7 +288,7 @@ const Levels = () => {
               {filterOptions.dish_washer.map(opt => <MenuItem key={opt} value={opt}>{opt}</MenuItem>)}
             </TextField>
           </Grid>
-          <Grid item xs={12} sm={6} md={6}>
+          <Grid item xs={12} sm={6} md={4}>
             <TextField
               select
               fullWidth
@@ -267,8 +306,60 @@ const Levels = () => {
               <MenuItem value="21-999">21+</MenuItem>
             </TextField>
           </Grid>
+          <Grid item xs={12} sm={6} md={4}>
+            <TextField
+              select
+              fullWidth
+              label="Time to Complete"
+              name="time_to_complete"
+              value={filters.time_to_complete}
+              onChange={handleFilterChange}
+              sx={{ width: 'fit-content', minWidth: 200 }}
+            >
+              <MenuItem value="">All</MenuItem>
+              <MenuItem value="1-3">1 - 3 minutes</MenuItem>
+              <MenuItem value="3-5">3 - 5 minutes</MenuItem>
+              <MenuItem value="5+">5+ minutes</MenuItem>
+            </TextField>
+          </Grid>
+          <Grid item xs={12} sm={6} md={4}>
+            <TextField
+              select
+              fullWidth
+              label="One Star Score"
+              name="one_star_score"
+              value={filters.one_star_score}
+              onChange={handleFilterChange}
+              sx={{ width: 'fit-content', minWidth: 200 }}
+            >
+              <MenuItem value="">All</MenuItem>
+              <MenuItem value="0-100">0 - 100</MenuItem>
+              <MenuItem value="101-200">101 - 200</MenuItem>
+              <MenuItem value="201-300">201 - 300</MenuItem>
+              <MenuItem value="301-400">301 - 400</MenuItem>
+              <MenuItem value="401-500">401 - 500</MenuItem>
+              <MenuItem value="501-9999">500+</MenuItem>
+            </TextField>
+          </Grid>
+          <Grid item xs={12} sm={6} md={4}>
+            <TextField
+              select
+              fullWidth
+              label="Number of Composite Challenges"
+              name="composite_num"
+              value={filters.composite_num}
+              onChange={handleFilterChange}
+              sx={{ width: 'fit-content', minWidth: 200 }}
+            >
+              <MenuItem value="">All</MenuItem>
+              <MenuItem value="1">1</MenuItem>
+              <MenuItem value="2">2</MenuItem>
+              <MenuItem value="3">3</MenuItem>
+              <MenuItem value="11">11</MenuItem>
+            </TextField>
+          </Grid>
         </Grid>
-        <Box sx={{ mt: 2, display: 'flex', gap: 2 }}>
+        <Box sx={{ mt: 2, display: 'flex', gap: 2, justifyContent: 'flex-end' }}>
           <Button variant="contained" color="primary" onClick={applyFilters}>
             Search
           </Button>
