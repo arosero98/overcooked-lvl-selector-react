@@ -126,9 +126,10 @@ const Levels = () => {
   
   const getScoreColor = (score) => {
     const numericScore = Number(score);
-    if (numericScore >= 8) return '#ffcdd2'; // red
-    if (numericScore >= 5) return '#fff9c4'; // yellow
-    return '#c8e6c9'; // green
+    if (numericScore > 20) return '#ef9a9a'; // light red for scores > 20
+    if (numericScore >= 11) return '#ffcc80'; // light orange for scores 11-20
+    if (numericScore >= 6) return '#fff9c4'; // light yellow for scores 6-10
+    return '#c8e6c9'; // light green for scores 1-5 and any other lower score
   };
 
   const renderWorlds = () => {
@@ -259,8 +260,11 @@ const Levels = () => {
               sx={{ width: 'fit-content', minWidth: 200 }}
             >
               <MenuItem value="">All</MenuItem>
-              <MenuItem value="1-4">1-4</MenuItem>
-              <MenuItem value="5-10">5-10</MenuItem>
+              <MenuItem value="1-5">1-5</MenuItem>
+              <MenuItem value="6-10">6-10</MenuItem>
+              <MenuItem value="11-15">11-15</MenuItem>
+              <MenuItem value="16-20">16-20</MenuItem>
+              <MenuItem value="21-999">21+</MenuItem>
             </TextField>
           </Grid>
         </Grid>
