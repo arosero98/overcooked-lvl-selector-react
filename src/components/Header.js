@@ -30,8 +30,8 @@ const Header = () => {
         <Link component={RouterLink} to="/" sx={{ p: 3, ...getLinkStyles('/') }}>
           Home
         </Link>
-        <Link component={RouterLink} to="/" sx={{ p: 3, ...getLinkStyles('/') }}>
-          Taxonomy
+        <Link component={RouterLink} to="/levels" sx={{ p: 3, ...getLinkStyles('/levels') }}>
+          Levels
         </Link>
         <Link component={RouterLink} to="/challenge" sx={{ p: 3, ...getLinkStyles('/challenge') }}>
           Measuring Challenge

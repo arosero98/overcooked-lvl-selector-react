@@ -3,7 +3,8 @@ import { Routes, Route } from 'react-router-dom';
 import { Box } from '@mui/material';
 
 import Header from './components/Header';
-import Home from './pages/Home';
+import Landing from './pages/Landing';
+import Levels from './pages/Levels';
 import ChallengeScorecard from './pages/ChallengeScorecard';
 import Contact from './pages/Contact';
 
@@ -13,7 +14,8 @@ function App() {
       <Header />
       <main>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Landing />} />
+          <Route path="/levels" element={<Levels />} />
           <Route path="/challenge" element={<ChallengeScorecard />} />
           <Route path="/contact" element={<Contact />} />
         </Routes>

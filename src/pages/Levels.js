@@ -21,7 +21,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import { Link as RouterLink } from 'react-router-dom';
 
 
-const Home = () => {
+const Levels = () => {
   const [allLevelsData, setAllLevelsData] = useState({});
   const [filteredLevels, setFilteredLevels] = useState([]);
   const [filters, setFilters] = useState({
@@ -327,4 +327,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Levels;
