@@ -7,7 +7,8 @@
     "variation_num": "2",
     "dish_washer": "no",
     "one_star_score": "20",
-    "challenge_score": "4"
+    "challenge_score": "4",
+    "video_link": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
   },
   "Level_1_2": {
     "time_to_complete": "2:30",
@@ -17,6 +18,7 @@
     "variation_num": "1",
     "dish_washer": "no",
     "one_star_score": "60",
-    "challenge_score": "5"
+    "challenge_score": "5",
+    "video_link": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
   }
 }

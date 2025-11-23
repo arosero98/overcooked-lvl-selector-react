@@ -277,6 +277,7 @@ const Levels = () => {
         >
           <DialogTitle>
             {selectedLevel.id.replace(/_/g, ' ')}
+            
             <IconButton
               aria-label="close"
               onClick={() => setIsDialogOpen(false)}
@@ -290,9 +291,21 @@ const Levels = () => {
             </IconButton>
           </DialogTitle>
           <DialogContent>
+            {selectedLevel.video_link && (
+              <Box sx={{ position: 'relative', width: '100%', paddingBottom: '56.25%', mb: 2 }}>
+                <iframe
+                  style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
+                  src={selectedLevel.video_link.replace("watch?v=", "embed/")}
+                  title="YouTube video player"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                ></iframe>
+              </Box>
+            )}
             <Table>
               <TableBody>
-                {Object.entries(selectedLevel).filter(([key]) => key !== 'id').map(([key, value]) => (
+                {Object.entries(selectedLevel).filter(([key]) => key !== 'id' && key !== 'video_link').map(([key, value]) => (
                   <TableRow key={key}>
                     <TableCell sx={{ textTransform: 'capitalize' }}>
                       {key.replace(/_/g, ' ')}
