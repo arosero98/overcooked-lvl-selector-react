@@ -7,6 +7,7 @@ import Landing from './pages/Landing';
 import Levels from './pages/Levels';
 import ChallengeScorecard from './pages/ChallengeScorecard';
 import Contact from './pages/Contact';
+import About from './pages/About';
 
 function App() {
   const location = useLocation();
@@ -21,6 +22,7 @@ function App() {
           <Route path="/levels" element={<Levels />} />
           <Route path="/challenge" element={<ChallengeScorecard />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/about" element={<About />} />
         </Routes>
       </main>
     </Box>

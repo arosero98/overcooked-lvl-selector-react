@@ -30,6 +30,9 @@ const Header = () => {
         <Link component={RouterLink} to="/" sx={{ p: 3, ...getLinkStyles('/') }}>
           Home
         </Link>
+        <Link component={RouterLink} to="/about" sx={{ p: 3, ...getLinkStyles('/about') }}>
+          About
+        </Link>
         <Link component={RouterLink} to="/levels" sx={{ p: 3, ...getLinkStyles('/levels') }}>
           Levels
         </Link>

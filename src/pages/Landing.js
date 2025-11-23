@@ -37,6 +37,26 @@ const Landing = () => {
           }
         }}
       >
+
+        <Link
+          component={RouterLink}
+          to="/about"
+          sx={{
+            color: 'white',
+            textDecoration: 'none',
+            fontSize: '1.1rem',
+            fontWeight: 500,
+            textShadow: '2px 2px 4px rgba(0, 0, 0, 0.8)',
+            transition: 'all 0.3s ease',
+            '&:hover': {
+              transform: 'translateY(-3px)',
+              textShadow: '2px 4px 8px rgba(0, 0, 0, 0.9)',
+              color: 'primary.light'
+            }
+          }}
+        >
+          About
+        </Link>
         <Link
           component={RouterLink}
           to="/levels"
