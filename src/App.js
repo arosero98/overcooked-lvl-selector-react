@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import { Box } from '@mui/material';
 
 import Header from './components/Header';
@@ -9,9 +9,12 @@ import ChallengeScorecard from './pages/ChallengeScorecard';
 import Contact from './pages/Contact';
 
 function App() {
+  const location = useLocation();
+  const isLandingPage = location.pathname === '/';
+
   return (
     <Box>
-      <Header />
+      {!isLandingPage && <Header />}
       <main>
         <Routes>
           <Route path="/" element={<Landing />} />
