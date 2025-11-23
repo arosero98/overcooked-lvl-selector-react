@@ -1,6 +1,6 @@
 import React from 'react';
-import { Box, Typography, Button } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import { Box, Typography, Button, Link } from '@mui/material';
+import { useNavigate, Link as RouterLink } from 'react-router-dom';
 
 const Landing = () => {
   const navigate = useNavigate();
@@ -14,6 +14,88 @@ const Landing = () => {
       justifyContent: 'center',
       overflow: 'hidden'
     }}>
+      {/* Floating Navigation */}
+      <Box
+        component="nav"
+        sx={{
+          position: 'absolute',
+          top: 30,
+          right: 40,
+          zIndex: 10,
+          display: 'flex',
+          gap: 4,
+          animation: 'fadeIn 1.5s ease-in-out',
+          '@keyframes fadeIn': {
+            from: {
+              opacity: 0,
+              transform: 'translateY(-20px)'
+            },
+            to: {
+              opacity: 1,
+              transform: 'translateY(0)'
+            }
+          }
+        }}
+      >
+        <Link
+          component={RouterLink}
+          to="/levels"
+          sx={{
+            color: 'white',
+            textDecoration: 'none',
+            fontSize: '1.1rem',
+            fontWeight: 500,
+            textShadow: '2px 2px 4px rgba(0, 0, 0, 0.8)',
+            transition: 'all 0.3s ease',
+            '&:hover': {
+              transform: 'translateY(-3px)',
+              textShadow: '2px 4px 8px rgba(0, 0, 0, 0.9)',
+              color: 'primary.light'
+            }
+          }}
+        >
+          Levels
+        </Link>
+        <Link
+          component={RouterLink}
+          to="/challenge"
+          sx={{
+            color: 'white',
+            textDecoration: 'none',
+            fontSize: '1.1rem',
+            fontWeight: 500,
+            textShadow: '2px 2px 4px rgba(0, 0, 0, 0.8)',
+            transition: 'all 0.3s ease',
+            '&:hover': {
+              transform: 'translateY(-3px)',
+              textShadow: '2px 4px 8px rgba(0, 0, 0, 0.9)',
+              color: 'primary.light'
+            }
+          }}
+        >
+          Challenge
+        </Link>
+        <Link
+          component={RouterLink}
+          to="/contact"
+          sx={{
+            color: 'white',
+            textDecoration: 'none',
+            fontSize: '1.1rem',
+            fontWeight: 500,
+            textShadow: '2px 2px 4px rgba(0, 0, 0, 0.8)',
+            transition: 'all 0.3s ease',
+            '&:hover': {
+              transform: 'translateY(-3px)',
+              textShadow: '2px 4px 8px rgba(0, 0, 0, 0.9)',
+              color: 'primary.light'
+            }
+          }}
+        >
+          Contact
+        </Link>
+      </Box>
+
       {/* Blurred Video Background */}
       <Box
         component="video"
