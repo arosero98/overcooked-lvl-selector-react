@@ -7,7 +7,7 @@ import openpyxl
 from pathlib import Path
 
 
-def inspect_excel(filepath, max_rows=50, max_cols=20):
+def inspect_excel(filepath, max_rows=73, max_cols=13):
     """Inspect and display the structure of the Excel file"""
     wb = openpyxl.load_workbook(filepath)
     sheet = wb["World 1"]
