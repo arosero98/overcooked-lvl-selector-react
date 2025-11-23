@@ -5,6 +5,8 @@ import {
   Button,
   Stack,
   TextField,
+  Snackbar,
+  Alert,
 } from '@mui/material';
 
 const Contact = () => {
@@ -12,12 +14,39 @@ const Contact = () => {
   const [email, setEmail] = useState('');
   const [subject, setSubject] = useState('');
   const [message, setMessage] = useState('');
+  const [notification, setNotification] = useState({ open: false, message: '', severity: 'success' });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const recipientEmail = 'your.email@example.com'; // Replace with the actual recipient email
-    const mailtoLink = `mailto:${recipientEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`)}`;
-    window.location.href = mailtoLink;
+
+    try {
+      const response = await fetch('http://localhost:3001/api/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name, email, subject, message }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setNotification({ open: true, message: `Email sent! Preview URL: ${data.previewUrl}`, severity: 'success' });
+        setName('');
+        setEmail('');
+        setSubject('');
+        setMessage('');
+      } else {
+        setNotification({ open: true, message: data.message || 'Failed to send email.', severity: 'error' });
+      }
+    } catch (error) {
+      console.error('Error sending email:', error);
+      setNotification({ open: true, message: 'An error occurred while sending the email.', severity: 'error' });
+    }
+  };
+
+  const handleCloseNotification = () => {
+    setNotification({ ...notification, open: false });
   };
 
   return (
@@ -69,6 +98,11 @@ const Contact = () => {
           </Button>
         </Stack>
       </form>
+      <Snackbar open={notification.open} autoHideDuration={6000} onClose={handleCloseNotification}>
+        <Alert onClose={handleCloseNotification} severity={notification.severity} sx={{ width: '100%' }}>
+          {notification.message}
+        </Alert>
+      </Snackbar>
     </Box>
   );
 };
