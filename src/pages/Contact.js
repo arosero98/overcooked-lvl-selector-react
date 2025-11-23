@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Box,
   Typography,
@@ -8,10 +8,16 @@ import {
 } from '@mui/material';
 
 const Contact = () => {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [subject, setSubject] = useState('');
+  const [message, setMessage] = useState('');
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission logic here
-    alert('Thank you for your message!');
+    const recipientEmail = 'your.email@example.com'; // Replace with the actual recipient email
+    const mailtoLink = `mailto:${recipientEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`)}`;
+    window.location.href = mailtoLink;
   };
 
   return (
@@ -27,6 +33,8 @@ const Contact = () => {
             type="text"
             placeholder="Your Name"
             fullWidth
+            value={name}
+            onChange={(e) => setName(e.target.value)}
           />
           <TextField
             required
@@ -34,6 +42,8 @@ const Contact = () => {
             type="email"
             placeholder="your.email@example.com"
             fullWidth
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
           <TextField
             required
@@ -41,6 +51,8 @@ const Contact = () => {
             type="text"
             placeholder="Subject of your message"
             fullWidth
+            value={subject}
+            onChange={(e) => setSubject(e.target.value)}
           />
           <TextField
             required
@@ -49,6 +61,8 @@ const Contact = () => {
             rows={5}
             placeholder="Your message here..."
             fullWidth
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
           />
           <Button type="submit" variant="contained" color="primary" fullWidth>
             Send
