@@ -42,9 +42,18 @@ const Levels = () => {
 
   useEffect(() => {
     fetch('/all_levels.json')
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
       .then((data) => {
         setAllLevelsData(data);
+      })
+      .catch((error) => {
+        console.error('Error fetching levels data:', error);
+        setNotification('Error loading levels data. Please refresh the page.');
       });
   }, []);
 

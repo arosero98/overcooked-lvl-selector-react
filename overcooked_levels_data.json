@@ -8,20 +8,20 @@
     "dish_washer": "no",
     "one_star_score": "20",
     "challenge_score": "4",
-    "video_link": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+    "video_link": ""
   },
   "Level_1_2": {
     "time_to_complete": "2:30",
     "start_at_go": "no",
     "fixed_environment": "yes",
     "composite_num": "1",
-    "variation_num": "1",
+    "variation_num": "manual-input-needed",
     "dish_washer": "no",
     "one_star_score": "60",
-    "challenge_score": "5",
-    "video_link": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+    "challenge_score": "4",
+    "video_link": ""
   },
-    "Level_1_3": {
+  "Level_1_3": {
     "time_to_complete": "3:00",
     "start_at_go": "yes",
     "fixed_environment": "yes",
