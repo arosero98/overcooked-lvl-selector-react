@@ -12,14 +12,13 @@ import {
 } from '@mui/material';
 
 const criteria = [
-    { id: 1, name: 'Time Constraints: Does Timer Start at "Go"?', description: 'Does the level timer start counting down once the level begins ("Go" statement)? If No, then 0, if Yes then 1 point.' },
+    { id: 1, name: 'Does Timer Start at "Go"?', description: 'Does the level timer start counting down once the level begins ("Go" statement)? If No, then 0, if Yes then 1 point.' },
     { id: 2, name: 'Score for One Star', description: 'What is the minimum one star score? Add 1 point for every 100 hundred points needed to obtain one star.' },
     { id: 3, name: 'Dish Washer', description: 'Add 1 point if there is a dish washer.' },
     { id: 4, name: 'Number of Composite Challenges', description: 'Add 2 points for every composite challenge in the level.' },
     { id: 5, name: 'Composite Challenge Variations', description: 'Add 1 point for every composite challenge variation. Add an additional point for every variation that changes the number of atomic challenges required to complete.' },
-    { id: 6, name: 'Fixed Obstacles', description: 'Add 1 point for every fixed obstacle (drop zones, being hit by car).' },
-    { id: 7, name: 'Variable Obstacles', description: 'Add 1 point for every variable obstacle (falling, overcooking).' },
-    { id: 8, name: 'Level Changes', description: 'Add 1 point for every environment change during the level playthrough. Add another point if the level change also changes tasking.' },
+    { id: 6, name: 'Number of Obstacles', description: 'Add 1 point for every fixed obstacle (drop zones, being hit by car).' },
+    { id: 7, name: 'Level Environment Changes', description: 'Add 1 point for every environment change during the level playthrough. Add another point if the level change also changes tasking.' },
 ];
 
 const ChallengeScorecard = () => {

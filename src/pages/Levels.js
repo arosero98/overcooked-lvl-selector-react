@@ -19,6 +19,7 @@ import {
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { Link as RouterLink } from 'react-router-dom';
+import { challenge_score_data } from '../constants/challenge-score-data';
 
 
 const Levels = () => {
@@ -407,9 +408,47 @@ const Levels = () => {
                 ></iframe>
               </Box>
             )}
+            <Typography variant="h6" component="h3" sx={{ mt: 2, mb: 1 }}>
+              Challenge Score Breakdown
+            </Typography>
             <Table>
               <TableBody>
-                {Object.entries(selectedLevel).filter(([key]) => key !== 'id' && key !== 'video_link').map(([key, value]) => (
+                {challenge_score_data.map((key) => {
+                  const displayKey = key.replace(/_/g, ' ');
+                  const value = key === 'composite_variations' ? selectedLevel['variation_num'] : selectedLevel[key];
+                  return (
+                    <TableRow key={key}>
+                      <TableCell sx={{ textTransform: 'capitalize' }}>
+                        {displayKey}
+                      </TableCell>
+                      <TableCell>{value}</TableCell>
+                    </TableRow>
+                  );
+                })}
+                <TableRow key="challenge_score">
+                    <TableCell sx={{ textTransform: 'capitalize' }}>
+                        <Typography fontWeight="bold">Challenge Score</Typography>
+                    </TableCell>
+                    <TableCell>
+                        <Typography fontWeight="bold">{selectedLevel.challenge_score}</Typography>
+                    </TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+            <Typography variant="h6" component="h3" sx={{ mt: 3, mb: 1 }}>
+              Additional Level Details
+            </Typography>
+            <Table>
+              <TableBody>
+                {Object.entries(selectedLevel)
+                  .filter(([key]) => 
+                    key !== 'id' &&
+                    key !== 'video_link' &&
+                    !challenge_score_data.includes(key) &&
+                    key !== 'challenge_score' &&
+                    key !== 'variation_num'
+                  )
+                  .map(([key, value]) => (
                   <TableRow key={key}>
                     <TableCell sx={{ textTransform: 'capitalize' }}>
                       {key.replace(/_/g, ' ')}
