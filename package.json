@@ -1,7 +1,7 @@
 {
   "name": "overcooked-lvl-selector-react",
   "version": "0.1.0",
-  "homepage": "https://arosero98.github.io//overcooked-lvl-selector-react",
+  "homepage": "https://arosero98.github.io/overcooked-lvl-selector-react",
   "private": false,
   "dependencies": {
     "@emotion/react": "^11.14.0",
