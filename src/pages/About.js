@@ -16,6 +16,7 @@ const About = () => {
       <Typography variant="h5" component="h3" sx={{ mt: 5, mb: 2 }}>
         Reference
       </Typography>
+      This is the reference to the paper.
       <Typography variant="h5" component="h3" sx={{ mt: 5, mb: 2 }}>
         Meet the Team
       </Typography>
