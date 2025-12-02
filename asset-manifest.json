@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/overcooked-lvl-selector-react/static/css/main.31d6cfe0.css",
-    "main.js": "/overcooked-lvl-selector-react/static/js/main.148f5bfe.js",
+    "main.js": "/overcooked-lvl-selector-react/static/js/main.b54823fd.js",
     "static/js/453.07077856.chunk.js": "/overcooked-lvl-selector-react/static/js/453.07077856.chunk.js",
     "index.html": "/overcooked-lvl-selector-react/index.html",
-    "main.148f5bfe.js.map": "/overcooked-lvl-selector-react/static/js/main.148f5bfe.js.map",
+    "main.b54823fd.js.map": "/overcooked-lvl-selector-react/static/js/main.b54823fd.js.map",
     "453.07077856.chunk.js.map": "/overcooked-lvl-selector-react/static/js/453.07077856.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.31d6cfe0.css",
-    "static/js/main.148f5bfe.js"
+    "static/js/main.b54823fd.js"
   ]
 }
