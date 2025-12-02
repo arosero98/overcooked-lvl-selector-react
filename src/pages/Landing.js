@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box, Typography, Button, Link } from '@mui/material';
 import { useNavigate, Link as RouterLink } from 'react-router-dom';
+import landingVid from './overcooked-landing-vid.mp4';
 
 const Landing = () => {
   const navigate = useNavigate();
@@ -137,7 +138,7 @@ const Landing = () => {
           objectFit: 'cover'
         }}
       >
-        <source src="/overcooked-landing-vid.mp4" type="video/mp4" />
+        <source src={landingVid} type="video/mp4" />
       </Box>
 
       {/* Dark Overlay for better text visibility */}
