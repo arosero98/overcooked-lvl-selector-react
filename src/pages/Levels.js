@@ -45,7 +45,7 @@ const Levels = () => {
   const [searchActive, setSearchActive] = useState(false);
 
   useEffect(() => {
-    fetch(`${process.env.PUBLIC_URL}/levels_with_scores.json`)
+    fetch(`levels_with_scores.json`)
       .then(response => response.json())
       .then(data => {
         setAllLevelsData(data);

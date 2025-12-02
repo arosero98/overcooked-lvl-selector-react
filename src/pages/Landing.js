@@ -137,7 +137,7 @@ const Landing = () => {
           objectFit: 'cover'
         }}
       >
-        <source src={`${process.env.PUBLIC_URL}/overcooked-landing-vid.mp4`} type="video/mp4" />
+        <source src="overcooked-landing-vid.mp4" type="video/mp4" />
       </Box>
 
       {/* Dark Overlay for better text visibility */}
