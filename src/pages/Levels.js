@@ -20,7 +20,7 @@ import {
 import CloseIcon from '@mui/icons-material/Close';
 import { Link as RouterLink } from 'react-router-dom';
 import { challenge_score_data } from '../constants/challenge-score-data';
-import levelsWithScores from '../levels_with_scores.json';
+import levelsWithScores from '../../levels_with_scores.json';
 
 
 const Levels = () => {
