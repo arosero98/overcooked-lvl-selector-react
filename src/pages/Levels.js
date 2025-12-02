@@ -45,8 +45,17 @@ const Levels = () => {
   const [searchActive, setSearchActive] = useState(false);
 
   useEffect(() => {
-    fetch(`levels_with_scores.json`)
-      .then(response => response.json())
+    fetch(`${process.env.PUBLIC_URL}/levels_with_scores.json`)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const contentType = response.headers.get("content-type");
+        if (!contentType || !contentType.includes("application/json")) {
+          throw new TypeError("Oops, we haven't got JSON!");
+        }
+        return response.json();
+      })
       .then(data => {
         setAllLevelsData(data);
         setFilteredLevels(Object.keys(data));
