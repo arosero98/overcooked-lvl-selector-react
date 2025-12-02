@@ -20,11 +20,10 @@ import {
 import CloseIcon from '@mui/icons-material/Close';
 import { Link as RouterLink } from 'react-router-dom';
 import { challenge_score_data } from '../constants/challenge-score-data';
-import levelsWithScores from '../levels_with_scores.json';
 
 
 const Levels = () => {
-  const [allLevelsData, setAllLevelsData] = useState(levelsWithScores);
+  const [allLevelsData, setAllLevelsData] = useState({});
   const [filteredLevels, setFilteredLevels] = useState([]);
   const [filters, setFilters] = useState({
     start_at_go: '',
@@ -46,20 +45,29 @@ const Levels = () => {
   const [searchActive, setSearchActive] = useState(false);
 
   useEffect(() => {
-    const startAtGoOptions = [...new Set(Object.values(allLevelsData).map(level => level.start_at_go))];
-    const fixedEnvironmentOptions = [...new Set(Object.values(allLevelsData).map(level => level.fixed_environment))];
-    const dishWasherOptions = [...new Set(Object.values(allLevelsData).map(level => level.dish_washer))];
+    fetch(`${process.env.PUBLIC_URL}/levels_with_scores.json`)
+      .then(response => response.json())
+      .then(data => {
+        setAllLevelsData(data);
+        setFilteredLevels(Object.keys(data));
+        
+        const startAtGoOptions = [...new Set(Object.values(data).map(level => level.start_at_go))];
+        const fixedEnvironmentOptions = [...new Set(Object.values(data).map(level => level.fixed_environment))];
+        const dishWasherOptions = [...new Set(Object.values(data).map(level => level.dish_washer))];
 
-    setFilterOptions({
-      start_at_go: startAtGoOptions,
-      fixed_environment: fixedEnvironmentOptions,
-      dish_washer: dishWasherOptions,
-    });
-    
-    if (!searchActive) {
-        setFilteredLevels(Object.keys(allLevelsData));
+        setFilterOptions({
+          start_at_go: startAtGoOptions,
+          fixed_environment: fixedEnvironmentOptions,
+          dish_washer: dishWasherOptions,
+        });
+      })
+      .catch(error => console.error('Error fetching level data:', error));
+  }, []);
+
+  useEffect(() => {
+    if (Object.keys(allLevelsData).length > 0 && !searchActive) {
+      setFilteredLevels(Object.keys(allLevelsData));
     }
-
   }, [allLevelsData, searchActive]);
 
   const handleFilterChange = (e) => {
