@@ -20,10 +20,11 @@ import {
 import CloseIcon from '@mui/icons-material/Close';
 import { Link as RouterLink } from 'react-router-dom';
 import { challenge_score_data } from '../constants/challenge-score-data';
+import levelsWithScores from '../levels_with_scores.json';
 
 
 const Levels = () => {
-  const [allLevelsData, setAllLevelsData] = useState({});
+  const [allLevelsData, setAllLevelsData] = useState(levelsWithScores);
   const [filteredLevels, setFilteredLevels] = useState([]);
   const [filters, setFilters] = useState({
     start_at_go: '',
@@ -43,23 +44,6 @@ const Levels = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [selectedLevel, setSelectedLevel] = useState(null);
   const [searchActive, setSearchActive] = useState(false);
-
-  useEffect(() => {
-    fetch('/all_levels.json')
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return response.json();
-      })
-      .then((data) => {
-        setAllLevelsData(data);
-      })
-      .catch((error) => {
-        console.error('Error fetching levels data:', error);
-        setNotification('Error loading levels data. Please refresh the page.');
-      });
-  }, []);
 
   useEffect(() => {
     const startAtGoOptions = [...new Set(Object.values(allLevelsData).map(level => level.start_at_go))];
