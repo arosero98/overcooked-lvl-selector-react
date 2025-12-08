@@ -20,6 +20,7 @@ import {
 import CloseIcon from '@mui/icons-material/Close';
 import { Link as RouterLink } from 'react-router-dom';
 import { challenge_score_data } from '../constants/challenge-score-data';
+import level1Pdf from '../assets/Overcooked_2_level_1.1.pdf';
 
 
 const Levels = () => {
@@ -462,7 +463,7 @@ const Levels = () => {
             {selectedLevel.id === 'Level_1_1' && (
               <Button
                 component={Link}
-                href="/Overcooked 2 level 1.1.pdf"
+                href={level1Pdf}
                 target="_blank"
                 rel="noopener noreferrer"
                 variant="contained"
