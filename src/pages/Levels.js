@@ -21,6 +21,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import { Link as RouterLink } from 'react-router-dom';
 import { challenge_score_data } from '../constants/challenge-score-data';
 import level1Pdf from '../assets/Overcooked_2_level_1.1.pdf';
+import level1_2Pdf from '../assets/Overcooked_2_level_1.2.pdf';
 
 
 const Levels = () => {
@@ -463,6 +464,18 @@ const Levels = () => {
             {selectedLevel.id === 'Level_1_1' && (
               <Button
                 href={level1Pdf}
+                target="_blank"
+                rel="noopener noreferrer"
+                variant="contained"
+                fullWidth
+                sx={{ mt: 4 }}
+              >
+                Full Level Breakdown
+              </Button>
+            )}
+            {selectedLevel.id === 'Level_1_2' && (
+              <Button
+                href={level1_2Pdf}
                 target="_blank"
                 rel="noopener noreferrer"
                 variant="contained"
