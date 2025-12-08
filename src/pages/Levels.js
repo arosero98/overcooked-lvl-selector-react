@@ -462,7 +462,6 @@ const Levels = () => {
             </Table>
             {selectedLevel.id === 'Level_1_1' && (
               <Button
-                component={Link}
                 href={level1Pdf}
                 target="_blank"
                 rel="noopener noreferrer"
