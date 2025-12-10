@@ -464,7 +464,7 @@ const Levels = () => {
                 ))}
               </TableBody>
             </Table>
-            {selectedLevel.id === 'Level_1_1' && (
+            {selectedLevel.id === 'Level_1_1' || selectedLevel.id === 'Level_1_4' && (
               <Button
                 href={level1Pdf}
                 target="_blank"
