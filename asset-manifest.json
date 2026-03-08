@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/overcooked-lvl-selector-react/static/css/main.31d6cfe0.css",
+    "main.js": "/overcooked-lvl-selector-react/static/js/main.9e0c8672.js",
+    "static/js/453.07077856.chunk.js": "/overcooked-lvl-selector-react/static/js/453.07077856.chunk.js",
+    "static/media/Overcooked_2_level_1.1.pdf": "/overcooked-lvl-selector-react/static/media/Overcooked_2_level_1.1.980d84cfb86548255557.pdf",
+    "static/media/Overcooked_2_level_1.2.pdf": "/overcooked-lvl-selector-react/static/media/Overcooked_2_level_1.2.b208bbf70f723d691642.pdf",
+    "index.html": "/overcooked-lvl-selector-react/index.html",
+    "main.9e0c8672.js.map": "/overcooked-lvl-selector-react/static/js/main.9e0c8672.js.map",
+    "453.07077856.chunk.js.map": "/overcooked-lvl-selector-react/static/js/453.07077856.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.31d6cfe0.css",
+    "static/js/main.9e0c8672.js"
+  ]
+}
