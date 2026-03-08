@@ -5,22 +5,31 @@ on:
     branches: [ main ]
   workflow_dispatch:
 
-permissions:
-  contents: write  # or use personal_token if needed
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: write  # allows the action to push
+
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: npm
-      - run: npm install
-      - run: npm run build
-      - uses: peaceiris/actions-gh-pages@v4
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build React app
+        run: npm run build
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
         with:
-          personal_token: ${{ secrets.GH_PAT }}  # required if branch protected or fork
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./build
