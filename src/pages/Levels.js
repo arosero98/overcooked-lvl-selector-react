@@ -1,11 +1,9 @@
-
 import React, { useState, useEffect, useCallback } from 'react';
 import {
   Box,
   Typography,
   Button,
   Grid,
-  Link,
   TextField,
   MenuItem,
   Dialog,
@@ -23,6 +21,10 @@ import { Link as RouterLink } from 'react-router-dom';
 import { challenge_score_data } from '../constants/challenge-score-data';
 import level1Pdf from '../assets/Overcooked_2_level_1.1.pdf';
 import level1_2Pdf from '../assets/Overcooked_2_level_1.2.pdf';
+import level1_3Pdf from '../assets/Overcooked_2_level_1.3.pdf';
+import level1_4Pdf from '../assets/Overcooked_2_level_1.4.pdf';
+import level1_5Pdf from '../assets/Overcooked_2_level_1.5.pdf';
+import level1_6Pdf from '../assets/Overcooked_2_level_1.6.pdf';
 
 
 const Levels = () => {
@@ -462,7 +464,6 @@ const Levels = () => {
                 ))}
               </TableBody>
             </Table>
-            
             {selectedLevel.id === 'Level_1_1' && (
               <Button
                 href={level1Pdf}
@@ -478,6 +479,54 @@ const Levels = () => {
             {selectedLevel.id === 'Level_1_2' && (
               <Button
                 href={level1_2Pdf}
+                target="_blank"
+                rel="noopener noreferrer"
+                variant="contained"
+                fullWidth
+                sx={{ mt: 4 }}
+              >
+                Full Level Breakdown
+              </Button>
+            )}
+            {selectedLevel.id === 'Level_1_3' && (
+              <Button
+                href={level1_3Pdf}
+                target="_blank"
+                rel="noopener noreferrer"
+                variant="contained"
+                fullWidth
+                sx={{ mt: 4 }}
+              >
+                Full Level Breakdown
+              </Button>
+            )}
+            {selectedLevel.id === 'Level_1_4' && (
+              <Button
+                href={level1_4Pdf}
+                target="_blank"
+                rel="noopener noreferrer"
+                variant="contained"
+                fullWidth
+                sx={{ mt: 4 }}
+              >
+                Full Level Breakdown
+              </Button>
+            )}
+            {selectedLevel.id === 'Level_1_5' && (
+              <Button
+                href={level1_5Pdf}
+                target="_blank"
+                rel="noopener noreferrer"
+                variant="contained"
+                fullWidth
+                sx={{ mt: 4 }}
+              >
+                Full Level Breakdown
+              </Button>
+            )}
+            {selectedLevel.id === 'Level_1_6' && (
+              <Button
+                href={level1_6Pdf}
                 target="_blank"
                 rel="noopener noreferrer"
                 variant="contained"
