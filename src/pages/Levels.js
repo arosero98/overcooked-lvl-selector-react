@@ -20,9 +20,20 @@ import {
 import CloseIcon from '@mui/icons-material/Close';
 import { Link as RouterLink } from 'react-router-dom';
 import { challenge_score_data } from '../constants/challenge-score-data';
-import level1Pdf from '../assets/Overcooked_2_level_1.1.pdf';
+import level1_1Pdf from '../assets/Overcooked_2_level_1.1.pdf';
 import level1_2Pdf from '../assets/Overcooked_2_level_1.2.pdf';
-
+import level1_3Pdf from '../assets/Overcooked_2_level_1.3.pdf';
+import level1_4Pdf from '../assets/Overcooked_2_level_1.4.pdf';
+import level1_5Pdf from '../assets/Overcooked_2_level_1.5.pdf';
+import level1_6Pdf from '../assets/Overcooked_2_level_1.6.pdf';
+const levelPdfMap = {
+  Level_1_1: level1_1Pdf,
+  Level_1_2: level1_2Pdf,
+  Level_1_3: level1_3Pdf,
+  Level_1_4: level1_4Pdf,
+  Level_1_5: level1_5Pdf,
+  Level_1_6: level1_6Pdf,
+};
 
 const Levels = () => {
   const [allLevelsData, setAllLevelsData] = useState({});
@@ -462,9 +473,10 @@ const Levels = () => {
               </TableBody>
             </Table>
             
-            {selectedLevel.id === 'Level_1_1' && (
+
+            {selectedLevel.id && (
               <Button
-                href={level1Pdf}
+                href={levelPdfMap[selectedLevel.id]}
                 target="_blank"
                 rel="noopener noreferrer"
                 variant="contained"
@@ -474,18 +486,7 @@ const Levels = () => {
                 Full Level Breakdown
               </Button>
             )}
-            {selectedLevel.id === 'Level_1_2' && (
-              <Button
-                href={level1_2Pdf}
-                target="_blank"
-                rel="noopener noreferrer"
-                variant="contained"
-                fullWidth
-                sx={{ mt: 4 }}
-              >
-                Full Level Breakdown
-              </Button>
-            )}
+   
           </DialogContent>
           <DialogActions>
             <Button variant="contained" color="primary" onClick={() => setIsDialogOpen(false)}>
