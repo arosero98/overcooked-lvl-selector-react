@@ -1,4 +1,4 @@
-name: Deploy React App
+name: Deploy React App to GitHub Pages
 
 on:
   push:
@@ -10,24 +10,29 @@ jobs:
     runs-on: ubuntu-latest
 
     permissions:
-      contents: write  # allows the action to push
+      contents: write  # needed to push to gh-pages branch
 
     steps:
-      - name: Checkout code
+      # 1️⃣ Checkout the code
+      - name: Checkout repository
         uses: actions/checkout@v4
 
+      # 2️⃣ Setup Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: npm
 
+      # 3️⃣ Install dependencies
       - name: Install dependencies
         run: npm install
 
-      - name: Build React app
+      # 4️⃣ Build React app
+      - name: Build project
         run: npm run build
 
+      # 5️⃣ Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
